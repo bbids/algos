@@ -1,0 +1,3 @@
+/home/sebastian/Desktop/projects/algos/linkedList/build/CMakeFiles/LinkedList.dir
+/home/sebastian/Desktop/projects/algos/linkedList/build/CMakeFiles/edit_cache.dir
+/home/sebastian/Desktop/projects/algos/linkedList/build/CMakeFiles/rebuild_cache.dir
