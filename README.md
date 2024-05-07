@@ -1,1 +1,1 @@
-I do not guarantee quality and robustness.
+I do not guarantee quality nor robustness.
