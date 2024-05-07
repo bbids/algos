@@ -1,0 +1,74 @@
+Node:
+- parent
+- left, right child
+- item
+
+edge: bidirectional link between nodes
+
+inspired by linked list
+
+TREE decomposes into SUBTREES
+
+LEAF: nodes without children
+
+DEPTH of a node: numbers of its ancestors / edges in path up to root
+
+HEIGHT of a node: number of edges in the longest downward path,
+
+
+height(root) = height of the tree
+
+there are trees that look like linked lists .. (bad!)
+
+___________________________________________________________
+
+TRAVERSAL ORDER of nodes: 
+
+(1) INORDER
+for every node (X)
+  - nodes in (X).left before (X)
+  - root
+  - nodes in (X).right after (X)
+
+iter((X)):
+  iter((X).left)
+  output((X))
+  iter((X).right)
+
+____________________________________________________________
+
+TRAVERSAL OPERATIONS:
+
+(1) subtree.first(node) O(h)
+  which comes first in traversal order within subtree?
+  go left until you arrive at a leaf
+
+(2) successor(node)   O(h)
+  what is the next after node in the the tree's traversal order??
+
+  if node.right: return subtree.first(node.right)
+  else: walk up tree (node = node.paren)
+      until go up a left branch (node == node.parent.left)
+
+(3) subtree.insert_after(node.new)  O(h)
+  insert new after node in the traversal order
+
+  - if no node.right: put new there
+  - else: put new as left child of successor(node)
+
+(4) subtree.delete(node)
+  if node is leaf detach it from parent
+  else: 
+    if node.left: O(h)
+      swap node.item <=> predecessor(node).item
+      subtree.delete(predecessor);
+
+__________________________________________________
+SEQUENCE:
+  traversal order = sequence order
+
+SET: BST
+  traversal order = increasing item key
+  find(key)
+  find_prev
+  find_next

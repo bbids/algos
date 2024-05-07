@@ -1,0 +1,103 @@
+set binary tree ~ binary search tree property
+
+left smaller, right greater ..
+
+O(h)
+
+subtree.find(node, key):
+  if node is null: return
+
+  if key < node.item.key:
+    recurse on left
+  if =: return node
+  if >: recurse on node.right
+
+________________________________________
+
+sequence binary tree
+
+traversal order = sequence order
+
+size(node) = # number of nodes in subtree
+
+O(h) if size known O(1) magically
+
+subtree.at(node, i):
+  n = size(node.left) // slow, so store sizes on every node
+  if i < n: subtree.at(node.left, i)
+  if i == n: return node
+  if i > n: subtree.at(node.right, i - n - 1)
+
+____________________________________________________________
+
+SUBTREE AUGMENTATION
+
+- each node can store O(1) extra fields/properties
+- subtree property:
+  can be computed from properties of node's children (and node)
+  in O(1) time
+  ex. recursive occurance:
+    node.size = node.left.size + node.right.size + 1
+    challenge: maintain sizes as the tree changes dynamically 
+
+    - insert/delete: O(h) to update ancestors
+
+  ex. sum, product, min, max, of some feature of every node in subtree
+  ex. NOT node's index (not a subtree property, depends on all nodes)
+      NOT depth
+
+____________________________________________________________
+
+O(h) to O(log n) (AVL tree)
+
+O(h) = O(log n): balanced bin. tree
+
+
+ROTATION: (tool for rebalancing a tree)
+ex. right_rotate(y) if it has left child, 
+ex. left_rotate(x) if it has right child
+-> preserve traversal order
+
+idea: get rid of linear nodes (linked lists) by rotating!
+
+AVL TREE:
+  maintain height balance:
+    skew(node)
+    |height(node.right) - height(node.left)| <= 1
+
+Proof: Height balance => balanced: (logarithmic height)
+  Number of nodes in height h: N(h)
+
+  worst case, skew of 1 in favor of right:
+  N(h) = N(h - 1) + N(h - 2) + 1 >=
+      >= N(h - 2) + N(h - 2)
+       = 2 * N(h - 2) = 2^(h / 2) => h <= 2 log n
+
+____________________________________________________________
+
+height is a subtree property,
+node.height = 1 + max{node.left.height, node.right.height}
+
+remember: have to update subtree properties when rotating
+
+rotation: O(1) locally, eventually need to update h ancestors
+but, as we maintain the height subtree property, the height is 2 * log(n)
+
+____________________________________________________________
+
+Let's consider lowest unbalanced node x (root). Height changed by 1, 
+=> skew is in [-2, 2], say right subtree higher by 2
+
+Case 1:
+  skew(x.next) = 1
+Case 2:
+  skew(x.next) = 0
+solve by left_rotate(x)
+
+Case 3:
+  skew(x.next) = -1
+solve by: 
+  right_rotate(x.next.parent)
+  left_rotate(x)
+
+
